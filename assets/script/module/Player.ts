@@ -6,6 +6,7 @@ import ResManager from "../manager/ResManager";
 
 export default class Player implements IMovementProvider {
     private node: cc.Node;
+    public get Node(): cc.Node { return this.node; }
 
     private visualNode: cc.Node;
 
