@@ -1,33 +1,27 @@
-import MyGame from "./MyGame";
+import KeyboardInput from "./input/KeyboardInput";
+import Player from "./models/Player";
+
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class Home extends cc.Component {
-    myGame: MyGame;
 
-    private static _instance: Home;
+    player: Player;
 
-    public static get Instance(): Home {
-        return this._instance;
-    }
-
-    protected onLoad(): void {
-        let self = this;
-        Home._instance = self;
-    }
-
-    protected start(): void {
+    protected async start(): Promise<void> {
         let self = this;
 
-        self.myGame = new MyGame();
+        let player = new Player(new KeyboardInput())
 
-        self.myGame.init();
+        await player.init(self.node);
+
+        self.player = player;
     }
 
     protected update(dt: number): void {
         let self = this;
 
-        self.myGame?.update(dt);
+        self.player?.update(dt);
     }
 }
